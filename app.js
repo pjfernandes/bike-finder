@@ -2,6 +2,8 @@ const btn = document.getElementById("button");
 
 btn.addEventListener("click",(event) => {
   event.preventDefault();
+  const resultDiv = document.getElementById("results");
+  resultDiv.innerHTML = '';
   const address = document.getElementById("address-input").value;
   fetch(`https://nominatim.openstreetmap.org/search?street=${address}&city=Rio%20de%20Janeiro&format=json&polygon=1&addressdetails=1`)
     .then(response => response.json())
@@ -17,13 +19,12 @@ btn.addEventListener("click",(event) => {
             dists.push([element[3], element[4], element[0], element[6], element[5], Math.sqrt((coords[0] - Number.parseFloat(element[6])) ** 2 + (coords[1] - Number.parseFloat(element[5])) ** 2)]);
           });
           const distsSorted = dists.sort((a, b) => a[5] - b[5]);
-          //PAREI AQUI
-          const resultDiv = document.getElementById("results");
+
           resultDiv.insertAdjacentHTML("beforeend", `<h5><i class="logo fas fa-bicycle text-primary"></i> Os 5 bicicletários mais próximos</h5>`)
           distsSorted.slice(0,4).forEach(element => {
             resultDiv.insertAdjacentHTML("beforeend",`<p class="text-secondary">${element[0]} ${element[1]}, ${element[2]}</p>`)
-
           })
+          //PAREI AQUI
 
         });
     });
