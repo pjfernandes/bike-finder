@@ -33,3 +33,21 @@ btn.addEventListener("click",(event) => {
       }
     });
 });
+
+mapboxgl.accessToken = 'pk.eyJ1IjoicGpmZXJuYW5kZXMiLCJhIjoiY2t1c291Z3lzNWg2bzJvbW5kNWNhbnZhaCJ9.eYxvagOUGuS5qDo-zOfRCA';
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/satellite-streets-v11',
+  center: [-43.375805, -22.91446],
+  zoom: 9
+});
+
+
+const mapDiv = document.getElementById("map");
+mapDiv.insertAdjacentHTML('beforeend', map);
+marker
+  .remove()
+  .setLngLat([coordsArray[0], coordsArray[1]])
+  .addTo(map);
+map.flyTo({ center: [coordsArray[0], coordsArray[1]], essential: true, zoom: 1 });
