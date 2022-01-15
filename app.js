@@ -1,4 +1,21 @@
 const btn = document.getElementById("button");
+mapboxgl.accessToken = 'pk.eyJ1IjoicGpmZXJuYW5kZXMiLCJhIjoiY2t1c291Z3lzNWg2bzJvbW5kNWNhbnZhaCJ9.eYxvagOUGuS5qDo-zOfRCA';
+
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/satellite-streets-v11',
+  center: [-43.375805, -22.91446],
+  zoom: 9
+});
+
+const mapDiv = document.getElementById("map");
+mapDiv.insertAdjacentHTML('beforeend', map);
+
+const fitMapToMarkers = (map, markers) => {
+  const bounds = new mapboxgl.LngLatBounds();
+  markers.forEach(marker => bounds.extend([marker.lng, marker.lat]));
+  map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
+};
 
 btn.addEventListener("click",(event) => {
   event.preventDefault();
@@ -23,31 +40,31 @@ btn.addEventListener("click",(event) => {
               });
               const distsSorted = dists.sort((a, b) => a[5] - b[5]);
 
-              resultDiv.insertAdjacentHTML("beforeend", `<h5><i class="logo fas fa-bicycle text-primary"></i> Os 5 bicicletários mais próximos</h5>`)
-              distsSorted.slice(0,5).forEach(element => {
-                resultDiv.insertAdjacentHTML("beforeend",`<p class="text-secondary">${element[0]} ${element[1]}, ${element[2]}</p>`)
-              })
-              //PAREI AQUI
+              resultDiv.insertAdjacentHTML("beforeend", `<h5 class="result-title text-dark">Os 5 bicicletários mais próximos de <i class="fas fa-map-marker-alt text-danger"></i>&nbsp${address}</h5>`)
 
+              map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/satellite-streets-v11',
+                center: [-43.375805, -22.91446],
+                zoom: 9
+              });
+
+              new mapboxgl.Marker({ "color": "#FF0000" }).setLngLat(coords).addTo(map);
+
+              distsSorted.slice(0,5).forEach(element => {
+                resultDiv.insertAdjacentHTML("beforeend",`<p class="text-secondary"><i class="fas fa-map-marker-alt text-info"></i>&nbsp${element[0]} ${element[1]}, ${element[2]}</p>`)
+                var marker = new mapboxgl.Marker();
+                marker
+                  .remove()
+                  .setLngLat([element[3], element[4]])
+                  .addTo(map);
+
+                const bounds = new mapboxgl.LngLatBounds();
+                bounds.extend([element[3], element[4]]);
+                map.fitBounds(bounds, { padding: 70, maxZoom: 9, duration: 10 });
+              })
+              //map.flyTo({ center: coords, essential: true, zoom: 9 });
             });
-      }
+      };
     });
 });
-
-mapboxgl.accessToken = 'pk.eyJ1IjoicGpmZXJuYW5kZXMiLCJhIjoiY2t1c291Z3lzNWg2bzJvbW5kNWNhbnZhaCJ9.eYxvagOUGuS5qDo-zOfRCA';
-
-const map = new mapboxgl.Map({
-  container: 'map',
-  style: 'mapbox://styles/mapbox/satellite-streets-v11',
-  center: [-43.375805, -22.91446],
-  zoom: 9
-});
-
-
-const mapDiv = document.getElementById("map");
-mapDiv.insertAdjacentHTML('beforeend', map);
-marker
-  .remove()
-  .setLngLat([coordsArray[0], coordsArray[1]])
-  .addTo(map);
-map.flyTo({ center: [coordsArray[0], coordsArray[1]], essential: true, zoom: 1 });
