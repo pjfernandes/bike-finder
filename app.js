@@ -21,7 +21,7 @@ btn.addEventListener("click",(event) => {
           const distsSorted = dists.sort((a, b) => a[5] - b[5]);
 
           resultDiv.insertAdjacentHTML("beforeend", `<h5><i class="logo fas fa-bicycle text-primary"></i> Os 5 bicicletários mais próximos</h5>`)
-          distsSorted.slice(0,4).forEach(element => {
+          distsSorted.slice(0,5).forEach(element => {
             resultDiv.insertAdjacentHTML("beforeend",`<p class="text-secondary">${element[0]} ${element[1]}, ${element[2]}</p>`)
           })
           //PAREI AQUI
