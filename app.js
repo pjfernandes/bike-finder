@@ -49,14 +49,20 @@ btn.addEventListener("click",(event) => {
                 zoom: 9
               });
 
-              new mapboxgl.Marker({ "color": "#FF0000" }).setLngLat(coords).addTo(map);
+              var popup = new mapboxgl.Popup({ offset: 25 }).setText(`Sua localização: ${address}`);
+              var el = document.createElement('div');
+              el.id = 'marker';
+              new mapboxgl.Marker({ "color": "#FF0000" }).setLngLat(coords).setPopup(popup).addTo(map);
 
               distsSorted.slice(0,5).forEach(element => {
                 resultDiv.insertAdjacentHTML("beforeend",`<p class="text-secondary"><i class="fas fa-map-marker-alt text-info"></i>&nbsp${element[0]} ${element[1]}, ${element[2]}</p>`)
                 var marker = new mapboxgl.Marker();
+                var popup = new mapboxgl.Popup({ offset: 25 }).setText(`${element[0]} ${element[1]}, ${element[2]}`);
+                var el = document.createElement('div');
+                el.id = 'marker';
                 marker
                   .remove()
-                  .setLngLat([element[3], element[4]])
+                  .setLngLat([element[3], element[4]]).setPopup(popup)
                   .addTo(map);
 
                 const bounds = new mapboxgl.LngLatBounds();
