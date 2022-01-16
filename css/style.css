@@ -45,6 +45,7 @@ body {
 .navbar-bike {
   justify-content: space-between;
   background: rgb(61, 66, 210);
+  border: black;
 }
 
 .navbar-bike .navbar-collapse {
