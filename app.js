@@ -40,7 +40,10 @@ btn.addEventListener("click",(event) => {
               });
               const distsSorted = dists.sort((a, b) => a[5] - b[5]);
 
-              resultDiv.insertAdjacentHTML("beforeend", `<h5 class="result-title text-dark">Bcicletários mais próximos de <i class="fas fa-map-marker-alt text-danger"></i>&nbsp<span class="text-secondary">${address}</span></h5>`)
+              resultDiv.insertAdjacentHTML("beforeend",
+              `
+              <h5 class="result-title text-dark">Bcicletários próximos de:</h5>
+              <h5><i class="fas fa-map-marker-alt text-danger"></i>&nbsp<span class="text-success">${address}</span></h5>`)
 
               map = new mapboxgl.Map({
                 container: 'map',
