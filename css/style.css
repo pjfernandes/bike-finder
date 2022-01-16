@@ -7,7 +7,7 @@ body {
 
 .title {
   font-family: 'Roboto', sans-serif;
-  text-shadow: 0 0 8px rgba(0,0,0,0.2);
+  text-shadow: 0 0 8px rgba(0,0,0,0.5);
 }
 
 .footer-copyright {
@@ -40,4 +40,13 @@ body {
 
 #legend {
   font-size: 10px;
+}
+
+.navbar-bike {
+  justify-content: space-between;
+  background: rgb(61, 66, 210);
+}
+
+.navbar-bike .navbar-collapse {
+  flex-grow: 0;
 }
